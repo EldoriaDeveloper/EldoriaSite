@@ -19,15 +19,42 @@
       color: #efdddd;
     }
 
-    #sideMenuContainer {
-      width: 250px;
-      background-color: #2c3e50;
-      color: #fff;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .toggle-button {
+        background-color: #444444;
+        color: #f7e7a8;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        margin: 10px;
+        font-size: 1em;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        transition: background-color 0.3s ease;
+    }
+
+    .toggle-button:hover {
+        background-color: #ff4d4d;
+    }
+
+    .side-menu {
+        display: none; 
+        position: fixed; 
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 200px; 
+        background-color: #444444;
+        color: #f7f7f7;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        z-index: 999; 
+    }
+
+    .side-menu.active {
+        display: block;
     }
 
     .content {
@@ -88,13 +115,16 @@
 </head>
 <body>
 
+<!-- Toggle Button -->
+<button class="toggle-button" onclick="toggleMenu()">☰ Toggle Menu</button>
+
 <!-- Side Menu -->
-<div id="sideMenuContainer"></div>
+<div id="sideMenuContainer" class="side-menu"></div>
 
 <!-- Terms of Service Content -->
 <div class="content">
   <h1>Terms of Service</h1>
-  <p><strong>Last Updated: [Insert Date]</strong></p>
+  <p><strong>Last Updated: 30/10/2024</strong></p>
 
   <section>
     <h2>1. Introduction</h2>
@@ -193,29 +223,24 @@
 </div>
 
 <script>
-  async function loadSideMenu() {
-      const response = await fetch('side-menu.html'); 
-      if (!response.ok) {
-        throw new Error('Network response was not ok: ' + response.statusText);
+  function toggleMenu() {
+      const sideMenuContainer = document.getElementById('sideMenuContainer');
+      sideMenuContainer.classList.toggle('active'); 
+
+      // If the menu is now active, load content
+      if (sideMenuContainer.classList.contains('active')) {
+          fetch('side-menu.html')
+              .then(response => response.text())
+              .then(data => {
+                  sideMenuContainer.innerHTML = data; 
+              })
+              .catch(error => {
+                  console.error('Error loading side menu:', error);
+              });
+      } else {
+          sideMenuContainer.innerHTML = ''; 
       }
-      const sideMenuHtml = await response.text();
-      document.getElementById('sideMenuContainer').innerHTML = sideMenuHtml;
-  
-      const menuLinks = document.querySelectorAll('.side-menu a');
-      const currentPage = window.location.pathname.split("/").pop();
-  
-      menuLinks.forEach(link => {
-        const linkPage = link.getAttribute('href').split("/").pop();
-        if (linkPage === currentPage) {
-          link.classList.add('active');
-          link.setAttribute('href', link.getAttribute('href'));
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    }
-  
-  loadSideMenu();
+  }
 </script>
 
 </body>

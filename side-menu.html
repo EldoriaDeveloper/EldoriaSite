@@ -3,35 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Side Menu Example</title>
+    <title>Side Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
     <style>
-        /* Base reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body styling */
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f9;
             display: flex;
         }
 
-        /* Side menu styling */
         .side-menu {
             position: fixed;
             top: 0;
             left: 0;
-            height: 100vh;
+            height: 120vh;
             width: 250px;
-            background: #2b3035; /* Dark blue background */
+            background: #2b3035; 
             display: flex;
             flex-direction: column;
-            padding-top: 40px; /* Space above title */
-            color: #ecf0f1; /* Light gray text */
+            padding-top: 40px; 
+            color: #ecf0f1; 
             transition: all 0.3s;
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.15);
         }
@@ -45,7 +42,6 @@
             font-weight: 600;
         }
 
-        /* Link styling */
         .side-menu a {
             color: #ecf0f1;
             text-decoration: none;
@@ -59,7 +55,6 @@
             font-weight: 500;
         }
 
-        /* Icon styling */
         .side-menu a i {
             margin-right: 12px;
             font-size: 1.2em;
@@ -67,15 +62,13 @@
             transition: color 0.3s;
         }
 
-        /* Hover effect */
         .side-menu a:hover {
             background: #34495e;
             color: #ecf0f1;
         }
 
-        /* Active link styling */
         .side-menu a.active {
-            background: #3498db; /* Blue background for active link */
+            background: #3498db;
             color: #fff;
             pointer-events: none;
         }
@@ -84,7 +77,6 @@
             color: #fff;
         }
 
-        /* Responsive for smaller screens */
         @media (max-width: 768px) {
             .side-menu {
                 width: 200px;
@@ -103,7 +95,7 @@
 <body>
 
 <nav class="side-menu">
-    <h3>Navigation</h3>
+    <h3> </h3>
     <a href="index.html" id="home" class="menu-link"><i class="fas fa-home"></i> Home</a>
     <a href="terms_of_service.html" id="terms" class="menu-link"><i class="fas fa-file-alt"></i> Terms of Service</a>
     <a href="privacy_policy.html" id="privacy" class="menu-link"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
@@ -114,13 +106,12 @@
 </nav>
 
 <script>
-    // JavaScript for active link highlighting
     const menuLinks = document.querySelectorAll('.menu-link');
-    const currentPage = window.location.pathname.split("/").pop(); // Get current page
+    const currentPage = window.location.pathname.split("/").pop();
 
     menuLinks.forEach(link => {
         if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active'); // Add active class to the current page link
+            link.classList.add('active');
         }
     });
 </script>
